@@ -4,14 +4,14 @@ Neste exercício, você criará um novo aplicativo do Azure AD usando o centro d
 
 1. Abra um navegador, navegue até o [centro de administração do Azure Active Directory](https://aad.portal.azure.com) e faça logon usando uma **conta pessoal** (também conhecida como conta da Microsoft) ou **Conta Corporativa ou de Estudante**.
 
-1. Selecione **Azure Active Directory** na navegação à esquerda e, em seguida, selecione **registros de aplicativo** em **gerenciar**.
+1. Selecione **Azure Active Directory** na navegação esquerda e selecione **Registros de aplicativos** em **Gerenciar**.
 
     ![Uma captura de tela dos registros de aplicativo ](./images/aad-portal-app-registrations.png)
 
 1. Selecione **Novo registro**. Na página **Registrar um aplicativo**, defina os valores da seguinte forma.
 
     - Defina **Nome** para `.NET Core Graph Tutorial`.
-    - Defina os **tipos de conta com suporte** para **contas em qualquer diretório organizacional**.
+    - Defina **Tipos de conta com suporte** para **Contas em qualquer diretório organizacional e contas pessoais da Microsoft**.
     - Deixe o **URI de Redirecionamento** vazio.
 
     ![Uma captura de tela da página registrar um aplicativo](./images/aad-register-an-app.png)
