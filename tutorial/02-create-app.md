@@ -20,18 +20,14 @@ Comece criando um novo projeto de console do .NET Core usando a [CLI do .NET Cor
 
 Antes de prosseguir, adicione algumas dependências adicionais que você usará posteriormente.
 
-- [Microsoft. Extensions. Configuration](https://github.com/aspnet/Extensions) para ler a configuração do aplicativo de um arquivo JSON.
+- [Microsoft. Extensions. Configuration. Usersecrets](https://github.com/aspnet/extensions) para ler a configuração do aplicativo no [repositório de segredo de desenvolvimento do .net](https://docs.microsoft.com/aspnet/core/security/app-secrets).
 - A [biblioteca de autenticação da Microsoft (MSAL) para .net](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) para autenticar o usuário e adquirir tokens de acesso.
 - [Biblioteca de cliente .net do Microsoft Graph](https://github.com/microsoftgraph/msgraph-sdk-dotnet) para fazer chamadas para o Microsoft Graph.
-- [Provedores de autenticação para o SDK do Microsoft Graph .net](https://github.com/microsoftgraph/msgraph-sdk-dotnet-auth) para permitir que a biblioteca de cliente do Graph solicite tokens automaticamente ao fazer chamadas de API.
 
 Execute os seguintes comandos em sua CLI para instalar as dependências.
 
 ```Shell
-dotnet add package Microsoft.Extensions.Configuration --version 3.1.0
-dotnet add package Microsoft.Extensions.Configuration.FileExtensions --version 3.1.0
-dotnet add package Microsoft.Extensions.Configuration.Json --version 3.1.0
-dotnet add package Microsoft.Extensions.Configuration.Binder --version 3.1.0
+dotnet add package Microsoft.Extensions.Configuration.UserSecrets --version 3.1.0
 dotnet add package Microsoft.Identity.Client --version 4.7.1
 dotnet add package Microsoft.Graph --version 1.21.0
 ```

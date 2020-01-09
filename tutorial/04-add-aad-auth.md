@@ -2,22 +2,18 @@
 
 Neste exercício, você estenderá o aplicativo do exercício anterior para oferecer suporte à autenticação com o Azure AD. Isso é necessário para obter o token de acesso OAuth necessário para chamar o Microsoft Graph. Nesta etapa, você integrará a [biblioteca de autenticação da Microsoft (MSAL) para .net](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) no aplicativo.
 
-Crie um novo arquivo no diretório **GraphTutorial** chamado **appSettings. JSON**. Adicione o seguinte texto nesse arquivo.
+Inicialize o [repositório de segredo de desenvolvimento do .net](https://docs.microsoft.com/aspnet/core/security/app-secrets) abrindo sua CLI no diretório que contém **GraphTutorial. csproj** e executando o comando a seguir.
 
-```json
-{
-  "appId": "YOUR_APP_ID_HERE",
-  "scopes": [
-    "User.Read",
-    "Calendars.Read"
-  ]
-}
+```Shell
+dotnet user-secrets init
 ```
 
-Substitua `YOUR_APP_ID_HERE` pela ID do aplicativo que você criou no portal do Azure.
+Em seguida, adicione a ID do aplicativo e uma lista de escopos necessários para o repositório secreto usando os seguintes comandos. Substitua `YOUR_APP_ID_HERE` pela ID do aplicativo que você criou no portal do Azure.
 
-> [!IMPORTANT]
-> Se você estiver usando o controle de origem como o Git, agora seria uma boa hora para excluir o arquivo **appSettings. JSON** do controle de origem para evitar vazar inadvertidamente sua ID de aplicativo.
+```Shell
+dotnet user-secrets set appId "YOUR_APP_ID_HERE"
+dotnet user-secrets set scopes "User.Read;Calendars.Read"
+```
 
 ## <a name="implement-sign-in"></a>Implementar logon
 
@@ -118,7 +114,6 @@ Nesta seção, você atualizará o aplicativo para chamar a `GetAccessToken` fun
 
     ```csharp
     using Microsoft.Extensions.Configuration;
-    using System.IO;
     ```
 
 1. Adicione a função a seguir à classe `Program`.
@@ -127,14 +122,12 @@ Nesta seção, você atualizará o aplicativo para chamar a `GetAccessToken` fun
     static IConfigurationRoot LoadAppSettings()
     {
         var appConfig = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json", false, true)
+            .AddUserSecrets<Program>()
             .Build();
 
         // Check for required settings
         if (string.IsNullOrEmpty(appConfig["appId"]) ||
-            // Make sure there's at least one value in the scopes array
-            string.IsNullOrEmpty(appConfig["scopes:0"]))
+            string.IsNullOrEmpty(appConfig["scopes"]))
         {
             return null;
         }
@@ -155,7 +148,8 @@ Nesta seção, você atualizará o aplicativo para chamar a `GetAccessToken` fun
     }
 
     var appId = appConfig["appId"];
-    var scopes = appConfig.GetSection("scopes").Get<string[]>();
+    var scopesString = appConfig["scopes"];
+    var scopes = scopesString.Split(';');
 
     // Initialize the auth provider with values from appsettings.json
     var authProvider = new DeviceCodeAuthProvider(appId, scopes);
