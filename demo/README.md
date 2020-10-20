@@ -4,7 +4,7 @@
 
 Para executar o projeto concluído nessa pasta, você precisará do seguinte:
 
-- O [SDK do .NET Core](https://dotnet.microsoft.com/download) instalado em sua máquina de desenvolvimento. (**Observação:** este tutorial foi escrito com o .NET Core SDK versão 2.2.401. As etapas deste guia podem funcionar com outras versões, mas que não foram testadas.
+- O [SDK do .NET Core](https://dotnet.microsoft.com/download) instalado em sua máquina de desenvolvimento. (**Observação:** este tutorial foi escrito com o .NET Core SDK versão 3.1.402. As etapas deste guia podem funcionar com outras versões, mas que não foram testadas.
 - Uma conta corporativa ou de estudante da Microsoft.
 
 Se você não tiver uma conta da Microsoft, poderá [se inscrever no programa para desenvolvedores do office 365](https://developer.microsoft.com/office/dev-program) para obter uma assinatura gratuita do Office 365.
@@ -25,7 +25,7 @@ Se você não tiver uma conta da Microsoft, poderá [se inscrever no programa pa
 
     ![Uma captura de tela da página registrar um aplicativo](/tutorial/images/aad-register-an-app.png)
 
-1. Selecione **registrar**. Na página do **tutorial do gráfico do .NET Core** , copie o valor da **ID do aplicativo (cliente)** e salve-o, você precisará dele na próxima etapa.
+1. Selecione **Registrar**. Na página do **tutorial do gráfico do .NET Core** , copie o valor da **ID do aplicativo (cliente)** e salve-o, você precisará dele na próxima etapa.
 
     ![Uma captura de tela da ID do aplicativo do novo registro de aplicativo](/tutorial/images/aad-application-id.png)
 

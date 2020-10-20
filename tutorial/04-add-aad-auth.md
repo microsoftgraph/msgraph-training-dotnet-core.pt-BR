@@ -12,8 +12,14 @@ Neste exercício, você estenderá o aplicativo do exercício anterior para ofer
 
     ```Shell
     dotnet user-secrets set appId "YOUR_APP_ID_HERE"
-    dotnet user-secrets set scopes "User.Read;Calendars.Read"
+    dotnet user-secrets set scopes "User.Read;MailboxSettings.Read;Calendars.ReadWrite"
     ```
+
+    Vamos examinar os escopos de permissão que você acabou de definir.
+
+    - **User. Read** permitirá que o aplicativo Leia o perfil do usuário conectado para obter informações como nome para exibição e endereço de email.
+    - **MailboxSettings. Read** permitirá que o aplicativo Leia o fuso horário, o formato de data e o formato de hora preferencial do usuário.
+    - **Calendars. ReadWrite** permitirá que o aplicativo Leia os eventos existentes no calendário do usuário e adicione novos eventos.
 
 ## <a name="implement-sign-in"></a>Implementar logon
 
@@ -28,7 +34,7 @@ Nesta seção, você criará um provedor de autenticação que pode ser usado co
 
 Considere o que esse código faz.
 
-- Ele usa a implementação `IPublicClientApplication` MSAL para solicitar e gerenciar tokens.
+- Ele usa a `IPublicClientApplication` implementação MSAL para solicitar e gerenciar tokens.
 - A `GetAccessToken` função:
   - Entra no usuário se ainda não estiverem conectados usando o fluxo de código de dispositivo.
   - Garante que o token retornado seja sempre atualizado usando a `AcquireTokenSilent` função, que retorna o token em cache se ele não tiver expirado e atualiza o token se ele tiver expirado.
