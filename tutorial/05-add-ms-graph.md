@@ -1,80 +1,41 @@
 <!-- markdownlint-disable MD002 MD041 -->
 
-Neste exercício, você incorporará o Microsoft Graph ao aplicativo. Para este aplicativo, você usará a Biblioteca de Cliente [.NET](https://github.com/microsoftgraph/msgraph-sdk-dotnet) do Microsoft Graph para fazer chamadas para o Microsoft Graph.
+Neste exercício, você incorporará o microsoft Graph no aplicativo. Para esse aplicativo, você usará a Biblioteca de Clientes [do Microsoft Graph .NET](https://github.com/microsoftgraph/msgraph-sdk-dotnet) para fazer chamadas para o Microsoft Graph.
 
 ## <a name="get-user-details"></a>Obter detalhes do usuário
 
-1. Crie um novo diretório no diretório **GraphTutorial** chamado **Graph**.
-1. Crie um novo arquivo no diretório **do Graph** **chamado GraphHelper.cs** e adicione o seguinte código a esse arquivo.
+1. Abra **./Graph/GraphHelper.cs** e adicione a seguinte função à **classe GraphHelper.**
 
-    ```csharp
-    using Microsoft.Graph;
-    using System;
-    using System.Collections.Generic;
-    using System.Threading.Tasks;
-    using TimeZoneConverter;
+    :::code language="csharp" source="../demo/GraphTutorial/Graph/GraphHelper.cs" id="GetMeSnippet":::
 
-    namespace GraphTutorial
-    {
-        public class GraphHelper
-        {
-            private static GraphServiceClient graphClient;
-            public static void Initialize(IAuthenticationProvider authProvider)
-            {
-                graphClient = new GraphServiceClient(authProvider);
-            }
-
-            public static async Task<User> GetMeAsync()
-            {
-                try
-                {
-                    // GET /me
-                    return await graphClient.Me
-                        .Request()
-                        .Select(u => new{
-                            u.DisplayName,
-                            u.MailboxSettings
-                        })
-                        .GetAsync();
-                }
-                catch (ServiceException ex)
-                {
-                    Console.WriteLine($"Error getting signed-in user: {ex.Message}");
-                    return null;
-                }
-            }
-        }
-    }
-    ```
-
-1. Adicione o código a seguir em ./Program.cs logo após a chamada para obter o usuário e exibir o nome de `Main`  `GetAccessToken` exibição do usuário.
+1. Adicione o código a seguir `Main` em **./Program.cs** logo após a chamada para obter o usuário e exibir o `GetAccessToken` nome de exibição do usuário.
 
     :::code language="csharp" source="../demo/GraphTutorial/Program.cs" id="GetUserSnippet":::
 
-Se você executar o aplicativo agora, depois de entrar no aplicativo, receberá você pelo nome.
+Se você executar o aplicativo agora, depois de fazer logoff, o aplicativo receberá você pelo nome.
 
 ## <a name="get-a-calendar-view"></a>Obter uma exibição de calendário
 
-1. Adicione a função a seguir `GraphHelper` à classe para obter eventos do calendário do usuário.
+1. Adicione a seguinte função à `GraphHelper` classe para obter eventos do calendário do usuário.
 
     :::code language="csharp" source="../demo/GraphTutorial/Graph/GraphHelper.cs" id="GetEventsSnippet":::
 
 Considere o que este código está fazendo.
 
-- A URL que será chamada é `/me/calendarview` .
-- The `startDateTime` and `endDateTime` parameters define the start and end of the calendar view.
-- O `Prefer: outlook.timezone` header faz `start` com que os eventos e os eventos sejam `end` retornados no fuso horário do usuário.
+- O URL que será chamado é `/me/calendarview`.
+- Os `startDateTime` `endDateTime` parâmetros e definem o início e o fim do exibição de calendário.
+- O header faz com que os eventos sejam `Prefer: outlook.timezone` `start` `end` retornados no fuso horário do usuário.
 - A `Top` função solicita no máximo 50 eventos.
-- A `Select` função limita os campos retornados para cada evento apenas àqueles que o aplicativo realmente usará.
-- A `OrderBy` função classifica os resultados por data e hora de início.
+- A `Select` função limita os campos retornados para cada evento para apenas aqueles que o aplicativo realmente usará.
+- A `OrderBy` função classifica os resultados pela data e hora de início.
 
 ## <a name="display-the-results"></a>Exibir os resultados
 
-1. Adicione a função a seguir à classe para formatar as `Program` propriedades [dateTimeTimeZone](/graph/api/resources/datetimetimezone?view=graph-rest-1.0) do Microsoft Graph em um formato amigável.
+1. Adicione a seguinte função à classe para formatar as `Program` [propriedades dateTimeTimeZone](/graph/api/resources/datetimetimezone?view=graph-rest-1.0) da Microsoft Graph em um formato amigável.
 
     :::code language="csharp" source="../demo/GraphTutorial/Program.cs" id="FormatDateSnippet":::
 
-1. Adicione a função a seguir à classe para obter os eventos do usuário e de saída `Program` para o console.
+1. Adicione a função a seguir à classe para obter os eventos do usuário e `Program` de saída para o console.
 
     :::code language="csharp" source="../demo/GraphTutorial/Program.cs" id="ListEventsSnippet":::
 
@@ -87,7 +48,7 @@ Considere o que este código está fazendo.
     );
     ```
 
-1. Salve todas as suas alterações e execute o aplicativo. Escolha a **opção Exibir o calendário desta** semana para ver uma lista dos eventos do usuário.
+1. Salve todas as alterações e execute o aplicativo. Escolha a **opção Exibir o calendário desta** semana para ver uma lista dos eventos do usuário.
 
     ```Shell
     Welcome Lynne Robbins!

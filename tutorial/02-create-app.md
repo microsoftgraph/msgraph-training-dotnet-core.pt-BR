@@ -2,7 +2,7 @@
 
 Comece criando um novo projeto de console do .NET Core usando a [CLI do .NET Core.](/dotnet/core/tools/)
 
-1. Abra sua CLI (interface de linha de comando) em um diretório onde você deseja criar o projeto. Execute o seguinte comando.
+1. Abra sua interface de linha de comando (CLI) em um diretório onde você deseja criar o projeto. Execute o seguinte comando:
 
     ```Shell
     dotnet new console -o GraphTutorial
@@ -14,36 +14,37 @@ Comece criando um novo projeto de console do .NET Core usando a [CLI do .NET Cor
     dotnet run
     ```
 
-    Se funcionar, o aplicativo deve ter `Hello World!` saída.
+    Se funcionar, o aplicativo deverá ter `Hello World!` saída .
 
 ## <a name="install-dependencies"></a>Instalar dependências
 
 Antes de continuar, adicione algumas dependências adicionais que você usará mais tarde.
 
-- [Microsoft.Extensions.Configuration. UserSecrets](https://github.com/aspnet/extensions) para ler a configuração do aplicativo do armazenamento secreto de desenvolvimento [do .NET.](https://docs.microsoft.com/aspnet/core/security/app-secrets)
-- [Biblioteca de Autenticação da Microsoft (MSAL) para .NET](https://github.com/AzureAD/microsoft-authentication-library-for-dotnet) para autenticar o usuário e adquirir tokens de acesso.
-- [Biblioteca de Cliente .NET do Microsoft Graph](https://github.com/microsoftgraph/msgraph-sdk-dotnet) para fazer chamadas para o Microsoft Graph.
-- [TimeZoneConverter para](https://github.com/mj1856/TimeZoneConverter) traduzir identificadores de fuso horário do Windows para identificadores IANA.
+- [Microsoft.Extensions.Configuration. UserSecrets](https://github.com/aspnet/extensions) to read application configuration from the [.NET development secret store](https://docs.microsoft.com/aspnet/core/security/app-secrets).
+- [Biblioteca de Clientes do Azure SDK para Identidade do Azure](https://github.com/Azure/azure-sdk-for-net) para autenticar o usuário e adquirir tokens de acesso.
+- [Microsoft Graph Biblioteca de Clientes .NET](https://github.com/microsoftgraph/msgraph-sdk-dotnet) para fazer chamadas para o microsoft Graph.
+- [TimeZoneConverter para](https://github.com/mj1856/TimeZoneConverter) traduzir Windows de fuso horário para identificadores IANA.
 
 Execute os seguintes comandos em sua CLI para instalar as dependências.
 
 ```Shell
 dotnet add package Microsoft.Extensions.Configuration.UserSecrets --version 5.0.0
-dotnet add package Microsoft.Identity.Client --version 4.25.0
-dotnet add package Microsoft.Graph --version 3.22.0
+dotnet add package Azure.Identity --version 1.4.0
+dotnet add package Microsoft.Graph --version 4.0.0
 dotnet add package TimeZoneConverter
 ```
 
-## <a name="design-the-app"></a>Projetar o aplicativo
+## <a name="design-the-app"></a>Design do aplicativo
 
 Nesta seção, você criará um menu simples baseado em console.
 
-Abra **./Program.cs** em um editor de texto (como [o Visual Studio Code)](https://code.visualstudio.com/)e substitua todo o conteúdo pelo código a seguir.
+Abra **./Program.cs** em um editor de texto [(como Visual Studio Code](https://code.visualstudio.com/)) e substitua todo o conteúdo pelo código a seguir.
 
 ```csharp
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace GraphTutorial
 {
